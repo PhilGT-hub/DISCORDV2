@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My HTML + CSS + JS</title>
+  <style>* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #36393F;
+  color: white;
+}
+
+#chatContainer {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  border-radius: 8px;
+  background-color: #2F3136;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#userList {
+  width: 200px;
+  background-color: #202225;
+  padding: 10px;
+  border-right: 1px solid #333;
+}
+
+#userList ul {
+  list-style: none;
+}
+
+#userList li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#userList li:hover {
+  background-color: #3B3D41;
+}
+
+#chatWindow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#chatHeader {
+  background-color: #7289DA;
+  padding: 10px;
+  text-align: center;
+}
+
+#messageArea {
+  flex-grow: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #36393F;
+  border-bottom: 1px solid #333;
+}
+
+#messageInput {
+  padding: 10px;
+  width: calc(100% - 22px);
+  border: none;
+  border-radius: 4px;
+  margin: 10px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #7289DA;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin: 10px;
+}
+
+button:hover {
+  background-color: #5C6EB5;
+}
+</style>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Discord Clone</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chatContainer">
+    <div id="userList">
+      <h3>Users</h3>
+      <ul>
+        <li onclick="switchUser('User1')">User1</li>
+        <li onclick="switchUser('User2')">User2</li>
+        <li onclick="switchUser('User3')">User3</li>
+      </ul>
+    </div>
+    <div id="chatWindow">
+      <div id="chatHeader">
+        <h3>Chat with <span id="currentUser">User1</span></h3>
+      </div>
+      <div id="messageArea"></div>
+      <input type="text" id="messageInput" placeholder="Type a message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
+
+<script>
+// Simulated messages storage
+let messages = {
+  User1: [],
+  User2: [],
+  User3: []
+};
+
+// Current active user
+let currentUser = 'User1';
+
+// Function to switch between users
+function switchUser(user) {
+  currentUser = user;
+  document.getElementById('currentUser').innerText = user;
+  displayMessages();
+}
+
+// Function to display messages for the current user
+function displayMessages() {
+  const messageArea = document.getElementById('messageArea');
+  messageArea.innerHTML = '';
+  messages[currentUser].forEach(msg => {
+    const messageDiv = document.createElement('div');
+    messageDiv.innerText = msg;
+    messageArea.appendChild(messageDiv);
+  });
+  messageArea.scrollTop = messageArea.scrollHeight; // Auto-scroll to the bottom
+}
+
+// Function to send a message
+function sendMessage() {
+  const messageInput = document.getElementById('messageInput');
+  const messageText = messageInput.value.trim();
+  
+  if (messageText !== '') {
+    // Add message to the current user's chat
+    messages[currentUser].push(messageText);
+    
+    // Display the updated messages
+    displayMessages();
+  }
+  
+  // Clear the input field
+  messageInput.value = '';
+}
+
+// Initialize the first user chat
+displayMessages();
+
+</script>
+</body>
+</html>
+      
